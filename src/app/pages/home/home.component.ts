@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Chart } from 'chart.js';
 import { Observable, of } from 'rxjs';
+import { OlympicCountry } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
 @Component({
@@ -16,3 +18,5 @@ export class HomeComponent implements OnInit {
     this.olympics$ = this.olympicService.getOlympics();
   }
 }
+
+
