@@ -2,7 +2,8 @@
 <hr />
 <app-pie-chart
 *ngIf = "(olympics$ | async)?.length" 
-[data] = "olympics$"></app-pie-chart>
+[data] = "olympics$"
+></app-pie-chart>
 <p *ngFor = "let olympic of olympics$ | async" >
  {{olympic.country}}
 </p>

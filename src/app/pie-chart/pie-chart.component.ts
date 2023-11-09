@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+  styleUrls: ['./pie-chart.component.scss'],
 })
 export class PieChartComponent implements OnInit {
   public chart: any;
@@ -24,41 +24,36 @@ export class PieChartComponent implements OnInit {
   createChart() :void{
     let countries : OlympicCountry[] = [];
     this.data.subscribe({next(value) {
-      console.log("pays?:" +value.length)
-      if( value.length === 5){
         countries = value;
-       
-      }
     },
     error(msg) {
       console.log('Error Getting country ', msg);
     }});
-    countries.forEach(country => {
-      console.log(country.country)      
-    });
+
     this.chart = new Chart("MyChart", {
       type: 'pie',
-  
+      
       data: {// values on X-Axis
         labels: countries.map(country => country.country),
-         datasets: [{
-    label: 'My First Dataset',
-    data: [300, 240, 100, 432, 253, 34],
-    backgroundColor: [
-      'red',
-      'pink',
-      'green',
-      'yellow',
-      'orange',
-      'blue',			
-    ],
-    hoverOffset: 4
-  }],
+        datasets: [{
+          data: countries.map(country => country.participations?.map(
+            participation => participation.medalsCount).reduce(
+              (previous,next)=> previous + next,0)),
+          backgroundColor: [
+            'red',
+            'pink',
+            'yellow',
+            'green',
+            'blue',			
+          ],
+        }],
       },
       options: {
         aspectRatio:2.5
-      }
+      },
+      
   
     });
   }
+  
 }
