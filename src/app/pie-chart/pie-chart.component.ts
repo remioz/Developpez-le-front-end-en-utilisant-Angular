@@ -49,6 +49,9 @@ export class PieChartComponent implements OnInit {
         }],
       },
       options: {
+        onClick(event, elements, chart) {
+          console.log("cliqué sur: "+countries[elements[0].index].country);
+        },
         aspectRatio:2.5
       },
       

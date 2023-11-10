@@ -3,6 +3,7 @@
 <app-pie-chart
 *ngIf = "(olympics$ | async)?.length" 
 [data] = "olympics$"
+router-link = "detail"
 ></app-pie-chart>
 <p *ngFor = "let olympic of olympics$ | async" >
  {{olympic.country}}
