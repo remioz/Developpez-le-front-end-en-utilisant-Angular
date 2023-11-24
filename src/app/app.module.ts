@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, PieChartComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,RouterModule],
   providers: [],
   bootstrap: [AppComponent],
 })

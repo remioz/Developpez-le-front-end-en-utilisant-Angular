@@ -1,4 +1,11 @@
-<div class="center">
-  <h2>Detail page</h2>
-  <a routerLink="">Go back</a>
-</div>
+ <!-- <div *ngIf="countryDetails$ | async as countryDetails">
+  <h2>{{ countryDetails.country }}</h2>
+  <p>Nombre de participations aux JO : {{ countryDetails.participations }}</p>
+  <p>Nombre total de médailles obtenues : {{ countryDetails.totalMedals }}</p>
+  <p>Nombre total d'athlètes présentés aux JO : {{ countryDetails.totalAthletes }}</p>
+
+   Ajout du graphique pour visualiser le nombre de médailles par édition -->
+
+
+  <button (click)="goToDashboard()">Retour à la page d'accueil</button>
+

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { OlympicCountry } from '../core/models/Olympic';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,13 +16,16 @@ export class PieChartComponent implements OnInit {
   data!: Observable<OlympicCountry[]>;
 
 
-  constructor() { }
+  constructor( private router: Router) {
+
+  }
 
   ngOnInit(): void {
     this.createChart()
   }
 
-  createChart() :void{
+  public createChart() :void{
+    
     let countries : OlympicCountry[] = [];
     this.data.subscribe({next(value) {
         countries = value;
@@ -41,8 +45,8 @@ export class PieChartComponent implements OnInit {
               (previous,next)=> previous + next,0)),
           backgroundColor: [
             'red',
-            'pink',
-            'yellow',
+            'orange',
+            'purple',
             'green',
             'blue',			
           ],
@@ -51,12 +55,12 @@ export class PieChartComponent implements OnInit {
       options: {
         onClick(event, elements, chart) {
           console.log("cliqué sur: "+countries[elements[0].index].country);
+          return countries[elements[0].index].country;
         },
         aspectRatio:2.5
       },
-      
-  
     });
+    //this.router.navigate(["/detail"],this.chart.onClick())
   }
   
 }
