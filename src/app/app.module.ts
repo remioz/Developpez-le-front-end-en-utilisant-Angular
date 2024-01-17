@@ -7,11 +7,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { DetailComponent } from './pages/detail/detail.component';
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, PieChartComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,RouterModule],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, PieChartComponent,DetailComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule,RouterModule,CommonModule],
   providers: [],
   bootstrap: [AppComponent],
 })

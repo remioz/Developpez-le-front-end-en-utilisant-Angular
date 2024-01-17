@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { OlympicCountry } from '../models/Olympic';
+import { Participation } from '../models/Participation';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,8 @@ export class OlympicService {
 
   getOlympics() {
     return this.olympics$.asObservable();
+  }
+  getCountryDetails(country: string|undefined):Participation[]|undefined{
+    return this.olympics$.value.filter((pays)=> pays.country === country)[0]?.participations
   }
 }

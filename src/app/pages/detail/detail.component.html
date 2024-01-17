@@ -1,11 +1,12 @@
- <!-- <div *ngIf="countryDetails$ | async as countryDetails">
-  <h2>{{ countryDetails.country }}</h2>
-  <p>Nombre de participations aux JO : {{ countryDetails.participations }}</p>
-  <p>Nombre total de médailles obtenues : {{ countryDetails.totalMedals }}</p>
-  <p>Nombre total d'athlètes présentés aux JO : {{ countryDetails.totalAthletes }}</p>
-
-   Ajout du graphique pour visualiser le nombre de médailles par édition -->
+ <div *ngIf="countryParticipations !== undefined">
+  <h2>{{ this.country }}</h2>
+  <p>Nombre de participations aux JO : {{ this.countryParticipations?.length }}</p>
+  <p>Nombre total de médailles obtenues : {{ this.totalMedals }}</p>
+  <p>Nombre total d'athlètes présentés aux JO : {{ this.totalAthletes }}</p>
 
 
+   Ajout du graphique pour visualiser le nombre de médailles par édition
+
+ </div>
   <button (click)="goToDashboard()">Retour à la page d'accueil</button>
 

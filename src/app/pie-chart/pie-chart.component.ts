@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { OlympicCountry } from '../core/models/Olympic';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./pie-chart.component.scss'],
 })
 export class PieChartComponent implements OnInit {
+  @ViewChild('pieChart') private pieChartCanvas: ElementRef | undefined;
   public chart: any;
   @Input()
   data!: Observable<OlympicCountry[]>;
@@ -21,11 +22,10 @@ export class PieChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createChart()
+    this.initPieChart()
   }
-
-  public createChart() :void{
-    
+  
+  initPieChart(): void {
     let countries : OlympicCountry[] = [];
     this.data.subscribe({next(value) {
         countries = value;
@@ -34,33 +34,42 @@ export class PieChartComponent implements OnInit {
       console.log('Error Getting country ', msg);
     }});
 
+    // Exemple de données, assurez-vous de remplacer cela par vos propres données
+    const data = {
+      labels: countries.map(country => country.country),
+      datasets: [{
+        data: countries.map(country => country.participations?.map(
+          participation => participation.medalsCount).reduce(
+            (previous,next)=> previous + next,0)),
+        backgroundColor: [
+          'red',
+          'orange',
+          'purple',
+          'green',
+          'blue',			
+        ],
+      }],
+    };
+
+    // Référence au service de routage
+    const router = this.router;
+
     this.chart = new Chart("MyChart", {
       type: 'pie',
-      
-      data: {// values on X-Axis
-        labels: countries.map(country => country.country),
-        datasets: [{
-          data: countries.map(country => country.participations?.map(
-            participation => participation.medalsCount).reduce(
-              (previous,next)=> previous + next,0)),
-          backgroundColor: [
-            'red',
-            'orange',
-            'purple',
-            'green',
-            'blue',			
-          ],
-        }],
-      },
+      data: data,
       options: {
-        onClick(event, elements, chart) {
-          console.log("cliqué sur: "+countries[elements[0].index].country);
-          return countries[elements[0].index].country;
+        aspectRatio:2.5,
+        onClick: function (event: any, chartElements: any[]) {
+          if (chartElements.length > 0) {
+            const clickedElementIndex = chartElements[0].index;
+            const clickedCountry = data.labels[clickedElementIndex];
+            router.navigate(['/detail'],
+            {queryParams: {country: clickedCountry}}
+            );
+          }
         },
-        aspectRatio:2.5
       },
     });
-    //this.router.navigate(["/detail"],this.chart.onClick())
   }
-  
 }
+
