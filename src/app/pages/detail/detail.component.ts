@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { OlympicCountry } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -9,26 +11,34 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.scss']
 })
-export class DetailComponent implements OnInit {
-  public countryParticipations: Participation[]|undefined;
-  public country: string | undefined;
+export class DetailComponent implements OnInit, OnDestroy{
+  public countryParticipations?: Participation[];
+  private olympicSub!:Subscription;
+  private countrySub!:Subscription;
+  public country!: string;
+  public olympic?:  OlympicCountry;
   public totalMedals: number|undefined;
   public totalAthletes: number|undefined;
   chartOptions: any;
-  chartSeries: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private olympicsService: OlympicService) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.countrySub = this.route.queryParams.subscribe(params => {
       this.country = params['country'];
-      this.countryParticipations = this.olympicsService.getCountryDetails(this.country);
     });
+    this.olympicSub = this.olympicsService.getCountryDetails(this.country)?.subscribe(olympic => this.olympic = olympic);
+    this.countryParticipations = this.olympic?.participations
     this.totalMedals = this.countryParticipations?.map((participation) => participation.medalsCount)
       .reduce((sum,count)=>sum + count,0)
     this.totalAthletes = this.countryParticipations?.map((participation) => participation.athleteCount)
       .reduce((sum,count)=>sum + count,0)
-    //this.initializeLineChartData();
+    console.log(this.countryParticipations)
+    this.initializeLineChartData();
+  }
+  ngOnDestroy(): void {
+    this.olympicSub.unsubscribe();
+    this.countrySub.unsubscribe();
   }
   initializeLineChartData(): void {
     if (this.countryParticipations) {
@@ -45,12 +55,13 @@ export class DetailComponent implements OnInit {
         xaxis: {
           categories: this.countryParticipations.map(data => data.year.toString()),
         },
+        yaxis:{
+          forceNiceScale: true
+        },
       };
     }
   }
   goToDashboard() {
-    // Navigate back to the dashboard
-    // You can use relative or absolute path, depending on your routing configuration
     this.router.navigate(['/']);
   }
 }

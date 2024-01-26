@@ -34,7 +34,6 @@ export class PieChartComponent implements OnInit {
       console.log('Error Getting country ', msg);
     }});
 
-    // Exemple de données, assurez-vous de remplacer cela par vos propres données
     const data = {
       labels: countries.map(country => country.country),
       datasets: [{
@@ -51,7 +50,6 @@ export class PieChartComponent implements OnInit {
       }],
     };
 
-    // Référence au service de routage
     const router = this.router;
 
     this.chart = new Chart("MyChart", {

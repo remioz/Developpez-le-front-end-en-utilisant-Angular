@@ -9,11 +9,13 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { DetailComponent } from './pages/detail/detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, PieChartComponent,DetailComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule,RouterModule,CommonModule],
+  imports: [AppRoutingModule, HttpClientModule, RouterModule, CommonModule, BrowserModule, CommonModule, FormsModule, ReactiveFormsModule, NgApexchartsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

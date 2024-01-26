@@ -1,12 +1,15 @@
  <div *ngIf="countryParticipations !== undefined">
   <h2>{{ this.country }}</h2>
-  <p>Nombre de participations aux JO : {{ this.countryParticipations?.length }}</p>
+  <p>Nombre de participations aux JO : {{ this.countryParticipations.length }}</p>
   <p>Nombre total de médailles obtenues : {{ this.totalMedals }}</p>
   <p>Nombre total d'athlètes présentés aux JO : {{ this.totalAthletes }}</p>
-
-
-   Ajout du graphique pour visualiser le nombre de médailles par édition
-
+   <apx-chart
+       [series]="chartOptions.series"
+       [chart]="chartOptions.chart"
+       [xaxis]="chartOptions.xaxis"
+       [yaxis]="chartOptions.yaxis"
+       [title]="chartOptions.title"
+     ></apx-chart>
  </div>
   <button (click)="goToDashboard()">Retour à la page d'accueil</button>
 
