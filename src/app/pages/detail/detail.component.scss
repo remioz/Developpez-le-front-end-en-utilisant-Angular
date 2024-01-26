@@ -1,1 +1,26 @@
+h2{
+    text-align: center;
+    background: #04838f;
+    color: white;
+    border-radius: 5px;
+    width: 20%;
+    margin: auto;
+}
 
+.data{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    span{
+        color: gray;
+        padding: 10px;
+        border: #068490 2px solid;
+        margin: 25px;
+        border-radius: 5px;
+        p{
+            font-weight: bolder;
+            color: black;
+            margin: 0;
+        }
+    }
+}

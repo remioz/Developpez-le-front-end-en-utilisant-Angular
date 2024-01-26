@@ -1,0 +1,24 @@
+.medals{
+    text-align: center;
+    background: #04838f;
+    color: white;
+    border-radius: 5px;
+    width: 20%;
+    margin: auto;
+}
+.data{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    .jos,.countries{
+        color: gray;
+        padding: 10px;
+        border: #068490 2px solid;
+        margin: 25px;
+        border-radius: 5px;
+        span{
+            font-weight: bolder;
+            color: black;
+        }
+    }
+}

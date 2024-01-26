@@ -45,6 +45,9 @@ export class DetailComponent implements OnInit, OnDestroy{
       this.chartOptions = {
         chart: {
           type: 'line',
+          toolbar:{
+            show:false,
+            },
         },
         series: [
           {
@@ -58,6 +61,7 @@ export class DetailComponent implements OnInit, OnDestroy{
         yaxis:{
           forceNiceScale: true
         },
+        
       };
     }
   }

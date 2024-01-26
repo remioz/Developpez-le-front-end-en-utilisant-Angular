@@ -1,10 +1,14 @@
-<h2>Medals per Country</h2>
-<hr />
+<h2 class="medals">Medals per Country</h2>
+<div class="data">
+    <div class="jos">Number of JOs <br>
+        <span>3</span> 
+    </div>
+    <div class="countries">Number of Countries <br>
+        <span>{{(olympics$ | async)?.length}}</span>
+    </div>
+</div>
 <app-pie-chart
 *ngIf = "(olympics$ | async)?.length" 
 [data] = "olympics$"
 router-link = "detail"
 ></app-pie-chart>
-<p *ngFor = "let olympic of olympics$ | async" >
- {{olympic.country}}
-</p>

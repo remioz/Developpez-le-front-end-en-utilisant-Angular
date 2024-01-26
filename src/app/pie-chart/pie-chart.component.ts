@@ -41,11 +41,11 @@ export class PieChartComponent implements OnInit {
           participation => participation.medalsCount).reduce(
             (previous,next)=> previous + next,0)),
         backgroundColor: [
-          'red',
-          'orange',
-          'purple',
-          'green',
-          'blue',			
+          '#793e52',
+          '#8aa1dc',
+          '#9780a1',
+          '#c0e0f1',
+          '#966165',			
         ],
       }],
     };

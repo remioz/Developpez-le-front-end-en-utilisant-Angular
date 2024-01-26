@@ -1,8 +1,16 @@
  <div *ngIf="countryParticipations !== undefined">
   <h2>{{ this.country }}</h2>
-  <p>Nombre de participations aux JO : {{ this.countryParticipations.length }}</p>
-  <p>Nombre total de médailles obtenues : {{ this.totalMedals }}</p>
-  <p>Nombre total d'athlètes présentés aux JO : {{ this.totalAthletes }}</p>
+  <div class="data">
+    <span>Number of entries <br> 
+      <p>{{ this.countryParticipations.length }}</p>
+    </span>
+    <span>Total number medals <br>
+    <p> {{ this.totalMedals }}</p>
+    </span>
+    <span>Total number of athletes<br>
+       <p>{{ this.totalAthletes }}</p>
+    </span>
+  </div>
    <apx-chart
        [series]="chartOptions.series"
        [chart]="chartOptions.chart"
