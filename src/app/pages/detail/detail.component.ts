@@ -44,6 +44,7 @@ export class DetailComponent implements OnInit, OnDestroy{
     if (this.countryParticipations) {
       this.chartOptions = {
         chart: {
+          height: '625',
           type: 'line',
           toolbar:{
             show:false,
