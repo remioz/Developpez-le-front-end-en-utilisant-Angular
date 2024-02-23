@@ -27,18 +27,25 @@ export class DetailComponent implements OnInit, OnDestroy{
     this.countrySub = this.route.queryParams.subscribe(params => {
       this.country = params['country'];
     });
-    this.olympicSub = this.olympicsService.getCountryDetails(this.country)?.subscribe(olympic => this.olympic = olympic);
-    this.countryParticipations = this.olympic?.participations
-    this.totalMedals = this.countryParticipations?.map((participation) => participation.medalsCount)
-      .reduce((sum,count)=>sum + count,0)
-    this.totalAthletes = this.countryParticipations?.map((participation) => participation.athleteCount)
-      .reduce((sum,count)=>sum + count,0)
-    console.log(this.countryParticipations)
-    this.initializeLineChartData();
+    if(!this.olympicsService.isValidCountry(this.country)){
+      this.router.navigate(["**"])
+    }else{
+      this.olympicSub = this.olympicsService.getCountryDetails(this.country)?.subscribe(olympic => this.olympic = olympic);
+      this.countryParticipations = this.olympic?.participations
+      this.totalMedals = this.countryParticipations?.map((participation) => participation.medalsCount)
+        .reduce((sum,count)=>sum + count,0)
+      this.totalAthletes = this.countryParticipations?.map((participation) => participation.athleteCount)
+        .reduce((sum,count)=>sum + count,0)
+      this.initializeLineChartData();
+    } 
   }
   ngOnDestroy(): void {
-    this.olympicSub.unsubscribe();
-    this.countrySub.unsubscribe();
+    if(this.olympicSub){
+      this.olympicSub.unsubscribe();
+    }
+    if(this.countrySub){
+      this.countrySub.unsubscribe();
+    }
   }
   initializeLineChartData(): void {
     if (this.countryParticipations) {

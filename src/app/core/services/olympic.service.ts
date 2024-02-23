@@ -26,7 +26,6 @@ export class OlympicService {
       })
     );
   }
-
   getOlympics() {
     return this.olympics$.asObservable();
   }
@@ -36,5 +35,18 @@ export class OlympicService {
         olympics => olympics.find(olympic => olympic.country === country)
       )
     );  
+  }
+  isValidCountry(country:string):boolean{
+    let countries : OlympicCountry[] = [];
+    this.olympics$.subscribe({next(value) {
+        countries = value;
+        },
+    })
+    const myOlympic = countries.find(mycountry => mycountry.country === country)
+    if(myOlympic){
+       return countries.includes(myOlympic)
+    }else{
+       return false;
+    }
   }
 }
